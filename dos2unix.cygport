@@ -1,0 +1,24 @@
+NAME="dos2unix"
+VERSION=6.0.3
+RELEASE=1
+CATEGORY="Text"
+SUMMARY="Converts text files between DOS and *NIX line endings"
+DESCRIPTION="The Dos2unix package includes utilities dos2unix and unix2dos to
+convert plain text files in DOS or Mac format to Unix format and vice versa."
+HOMEPAGE="http://waterlan.home.xs4all.nl/dos2unix.html"
+SRC_URI="mirror://sourceforge/dos2unix/dos2unix-${VERSION}.tar.gz"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake CC=${CC} CFLAGS="${CFLAGS}"
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	# for compatibility with cygutils
+	newbin dos2unix.exe d2u.exe
+	newbin unix2dos.exe u2d.exe
+}
